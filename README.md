@@ -3,8 +3,8 @@ Crie seu próprio operador
 
 # uso
 ```cpp
-double result = Math::input(<string expression>); //apenas para calcular a expressão
-double result = Math::input(<string expression>, <vector operators>); //calcular expressão com operadores customizados
+double result = Custor::input(<string expression>); //apenas para calcular a expressão
+double result = Custor::input(<string expression>, <vector operators>); //calcular expressão com operadores customizados
 ```
 
 # exemplo de operadores customizados
@@ -19,12 +19,12 @@ double calc (double right, double left){
 
 int main() {
   
-	std::vector<Math::operators> ops{{'~', 0, calc}}; //nescessário o operador, a posição, e a função que irá lidar com o cálculo
+	std::vector<Custor::operators> ops{{'~', 0, calc}}; //nescessário o operador, a posição, e a função que irá lidar com o cálculo
   
 	try{
 
 		std::string str = "2.5~2";
-		double out = Math::input(str, ops);
+		double out = Custor::input(str, ops);
     
 		std::cout << out << std::endl;
     
