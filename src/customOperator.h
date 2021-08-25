@@ -78,8 +78,8 @@ namespace Custor {
         return false;
       else if (isalpha(op.op) || isdigit(op.op) || op.op == ' ' || op.op == '.' || op.op == '(' || op.op == ')')
         return false;
-      else if(op.index < 0)
-	return false;
+			else if(op.index < 0)
+				return false;
     }
 
     return true;
@@ -179,7 +179,7 @@ namespace Custor {
         }
 
         if (sameOp(data))
-          res = reduce(data);
+        res = reduce(data);
 
         if (data.size() == 1)
           res = reduce(data);
@@ -219,6 +219,8 @@ namespace Custor {
         if (opExists(str[i])) {
           if (alreadyNum == true)
             ++exprs;
+					else if(str[i] != '-')
+						return true;
 
         }
         break;
@@ -244,15 +246,14 @@ namespace Custor {
     for (int i = 0; i <= str.length(); i++) {
 
       if (i == str.length()) {
-
-        if (block > 0 || (cu.op == ' ' && sblock.length() == 0 && joined.length() == 0))
-          throw std::string("Invalid syntax a");
+      if((level > 0 && joined.length() == 0) || block > 0 || (cu.op == ' ' && sblock.length() == 0 && joined.length() == 0))
+          throw std::string("Invalid expression");
         else if (sblock.length() > 0)
           joined = input(sblock);
         else if (joined.length() > 0 && cu.op == ' ')
           res = atof(joined.c_str());
         else {
-
+         
           cu.l = (double) atof(joined.c_str());
           cu.total = calc(cu);
 
@@ -275,7 +276,7 @@ namespace Custor {
           case '.':
 
             if (slevel >= 1 && joined.length() > 0)
-              throw std::string("Invalid syntax b");
+              throw std::string("Invalid expression");
             else if (level == 1)
               ++level;
 
@@ -297,20 +298,19 @@ namespace Custor {
 
           default:
             if (opExists(str[i])) {
-
+            
               if (joined.length() == 0)
-                throw std::string("Invalid syntax c");
+                throw std::string("Invalid expression");
 
               if (level == 0) {
                 cu.r = (double) atof(joined.c_str());
                 joined = "";
                 slevel = 0;
 
-              } else if (level == 2) {
+								
+								} else if (level == 2) {
                 cu.l = (double) atof(joined.c_str());
-
                 cu.total = calc(cu);
-
                 data.push_back(cu);
 
                 cu = {
@@ -324,12 +324,13 @@ namespace Custor {
                 block = 0;
                 sblock = "";
               }
-
-              cu.op = str[i];
-              if (level < 1)
-                ++level;
-              else
-                throw std::string("Invalid syntax d");
+							
+              if(level < 1){
+								cu.op = str[i];
+               ++level;
+									}
+							else
+                throw std::string("Invalid expression");
 
             } else
               throw std::string("Invalid token '") + str[i] + "'";
@@ -347,7 +348,7 @@ namespace Custor {
             if (block > 0)
               sblock += str[i];
             else {
-
+              
               if (isNaN(sblock) == true)
                 joined = std::to_string(input(sblock));
               else
@@ -360,6 +361,7 @@ namespace Custor {
             }
           } else
             sblock += str[i];
+						
 
         }
 
