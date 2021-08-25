@@ -11,7 +11,7 @@ double result = Math::input(<string expression>, <vector operators>); //calcular
 ```cpp
 #include <iostream>
 #include <vector>
-#include "math.h"
+#include "customOperator.h"
 
 double calc (double right, double left){
 	return right+left;
