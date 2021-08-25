@@ -1,5 +1,5 @@
 # Custom-Operator
-Interpretador de caculos matemático, com suporte a operador customizado
+Interpretador de caculos matemáticos, com suporte a operador customizado
 
 # uso
 ```cpp
