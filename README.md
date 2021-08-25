@@ -23,7 +23,7 @@ int main() {
   
 	try{
 
-		std::string str = "2.5+2";
+		std::string str = "2.5~2";
 		double out = Math::input(str, ops);
     
 		std::cout << out << std::endl;
