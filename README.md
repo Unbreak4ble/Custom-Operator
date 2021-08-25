@@ -4,7 +4,7 @@ Crie seu próprio operador
 # uso
 ```cpp
 double result = Math::input(<string expression>); //apenas para calcular a expressão
-double result = Math::input(<string expression>, <operators>); //calcular expressão com operadores customizados
+double result = Math::input(<string expression>, <vector operators>); //calcular expressão com operadores customizados
 ```
 
 # exemplo de operadores customizados
