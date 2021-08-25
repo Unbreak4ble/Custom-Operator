@@ -1,5 +1,5 @@
 # Custom-Operator
-Crie seu próprio operador
+Sem nada para fazer, resolvi desenvolver um sistema de operadores customizados 
 
 # uso
 ```cpp
