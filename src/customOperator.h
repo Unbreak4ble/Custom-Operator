@@ -254,7 +254,7 @@ namespace Custor {
           res = atof(joined.c_str());
         else {
 
-          cu.l = (double) atof(joined.c_str());
+          cu.l = atof(joined.c_str());
           cu.total = calc(cu);
 
           data.push_back(cu);
@@ -303,12 +303,12 @@ namespace Custor {
                 throw std::string("Invalid expression");
 
               if (level == 0) {
-                cu.r = (double) atof(joined.c_str());
+                cu.r = atof(joined.c_str());
                 joined = "";
                 slevel = 0;
 
               } else if (level == 2) {
-                cu.l = (double) atof(joined.c_str());
+                cu.l = atof(joined.c_str());
                 cu.total = calc(cu);
                 data.push_back(cu);
 
@@ -367,7 +367,7 @@ namespace Custor {
     }
 
     if (data.size() == 1)
-      res = (double) data[0].total;
+      res = data[0].total;
     else if (data.size() > 0)
       res = reduce(data);
 
