@@ -19,7 +19,7 @@ double calc (double right, double left){
 
 int main() {
   
-	std::vector<Custor::operators> ops{{'~', 0, calc}}; //nescessário o operador, a posição, e a função que irá lidar com o cálculo
+	std::vector<Custor::operators> ops{{'~', 0, calc}}; //nescessário um caractere, a posição, e a função que irá lidar com o cálculo
   
 	try{
 
