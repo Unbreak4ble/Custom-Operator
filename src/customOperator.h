@@ -30,7 +30,7 @@ namespace complements {
   }
 };
 
-namespace Math {
+namespace Custor {
 
   /*******************\
             Structures
