@@ -78,6 +78,8 @@ namespace Custor {
         return false;
       else if (isalpha(op.op) || isdigit(op.op) || op.op == ' ' || op.op == '.' || op.op == '(' || op.op == ')')
         return false;
+      else if(op.index < 0)
+	return false;
     }
 
     return true;
