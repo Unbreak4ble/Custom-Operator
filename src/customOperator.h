@@ -192,7 +192,7 @@ namespace Custor {
 
   bool isNaN(std::string str) {
     bool is;
-    int exprs = 0;
+    int exprs = 0, point = 0;
     bool alreadyNum;
 
     for (int i = 0; i < str.length(); i++) {
@@ -208,11 +208,21 @@ namespace Custor {
       case '7':
       case '8':
       case '9':
-      case '.':
         if (exprs > 0 && exprs < 2)
           is = true;
 
+        if (point > 1)
+          throw std::string("Invalid expression");
+
         alreadyNum = true;
+        point = 0;
+        break;
+
+      case '.':
+        if (alreadyNum != true)
+          throw std::string("Invalid expression");
+        else
+          ++point;
         break;
 
       default:
@@ -229,6 +239,9 @@ namespace Custor {
       }
 
     }
+
+    if (point > 0)
+      throw std::string("Invalid expression");
 
     return is;
   }
