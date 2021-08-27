@@ -222,7 +222,9 @@ namespace Custor {
           else if (str[i] != '-')
             return true;
 
-        }
+        } else if (!(str[i] == '(' || str[i] == ')' || str[i] == ' '))
+          throw std::string("invalid token '") + str[i] + "'";
+
         break;
       }
 
@@ -247,7 +249,7 @@ namespace Custor {
     for (int i = 0; i <= str.length(); i++) {
 
       if (i == str.length()) {
-        if (point > 0 || (level > 0 && joined.length() == 0) || block > 0 || (cu.op == ' ' && sblock.length() == 0 && joined.length() == 0))
+        if (point > 1 || (level > 0 && joined.length() == 0) || block > 0 || (cu.op == ' ' && sblock.length() == 0 && joined.length() == 0))
           throw std::string("Invalid expression");
         else if (sblock.length() > 0)
           joined = input(sblock);
@@ -275,7 +277,7 @@ namespace Custor {
           case '8':
           case '9':
 
-            if (slevel >= 1 && joined.length() > 0)
+            if (point > 1 || (slevel >= 1 && joined.length() > 0))
               throw std::string("Invalid expression");
             else if (level == 1)
               ++level;
@@ -285,11 +287,13 @@ namespace Custor {
             break;
 
           case '.':
-            if (joined.length() > 0) {
-              joined += str[i];
-              ++point;
-            } else
+
+            if (point > 0 || slevel > 0 || joined.length() == 0)
               throw std::string("Invalid expression");
+
+            joined += str[i];
+            ++point;
+
             break;
 
           case ' ':
@@ -330,8 +334,8 @@ namespace Custor {
                 level = 0;
                 slevel = 0;
                 block = 0;
-                sblock =
-                  point = 0;
+                sblock = "";
+                point = 0;
               }
 
               if (level < 1) {
@@ -356,7 +360,6 @@ namespace Custor {
             if (block > 0)
               sblock += str[i];
             else {
-
               if (isNaN(sblock) == true)
                 joined = std::to_string(input(sblock));
               else
