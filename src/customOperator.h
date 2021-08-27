@@ -232,6 +232,7 @@ namespace Custor {
   }
 
   double input(std::string str) {
+    checkOps();
     double res = 0.0;
     std::vector < current > data;
     current cu {
@@ -239,14 +240,14 @@ namespace Custor {
       0,
       ' '
     };
-    int level = 0, slevel = 0, block = 0;
+    int level = 0, slevel = 0, block = 0, point = 0;
     std::string joined;
     std::string sblock;
 
     for (int i = 0; i <= str.length(); i++) {
 
       if (i == str.length()) {
-        if ((level > 0 && joined.length() == 0) || block > 0 || (cu.op == ' ' && sblock.length() == 0 && joined.length() == 0))
+        if (point > 0 || (level > 0 && joined.length() == 0) || block > 0 || (cu.op == ' ' && sblock.length() == 0 && joined.length() == 0))
           throw std::string("Invalid expression");
         else if (sblock.length() > 0)
           joined = input(sblock);
@@ -273,7 +274,6 @@ namespace Custor {
           case '7':
           case '8':
           case '9':
-          case '.':
 
             if (slevel >= 1 && joined.length() > 0)
               throw std::string("Invalid expression");
@@ -281,6 +281,15 @@ namespace Custor {
               ++level;
 
             joined += str[i];
+            point = 0;
+            break;
+
+          case '.':
+            if (joined.length() > 0) {
+              joined += str[i];
+              ++point;
+            } else
+              throw std::string("Invalid expression");
             break;
 
           case ' ':
@@ -299,7 +308,7 @@ namespace Custor {
           default:
             if (opExists(str[i])) {
 
-              if (joined.length() == 0)
+              if (joined.length() == 0 || point > 0)
                 throw std::string("Invalid expression");
 
               if (level == 0) {
@@ -321,7 +330,8 @@ namespace Custor {
                 level = 0;
                 slevel = 0;
                 block = 0;
-                sblock = "";
+                sblock =
+                  point = 0;
               }
 
               if (level < 1) {
@@ -378,7 +388,6 @@ namespace Custor {
     if (ops.size() > 0) {
       if (validateOps(ops)) {
         vops = ops;
-        checkOps();
       } else
         throw std::string("invalid operator struct");
     }
