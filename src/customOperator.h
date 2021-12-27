@@ -315,6 +315,8 @@ namespace Custor {
 
           case '(':
             ++block;
+            if(point > 0 || level != 1) throw std::string("Invalid expression");
+            else
             if (level == 1) ++level;
             break;
 
